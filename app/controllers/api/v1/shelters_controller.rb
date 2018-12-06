@@ -26,14 +26,13 @@ module Api
       private
 
       def shelter_params
-        params.require(:shelter).permit(:location)
+        params.require(:shelter).require(:name)
+        params.require(:shelter).permit(:location, :name)
       end
 
       def set_shelter
         @shelter = Shelter.find(params[:id])
       end
-
-
 
     end
   end
