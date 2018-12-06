@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   %w( admin client worker).each do |role_name|
     define_method ("is_#{role_name}?") do
-      role.downcase == role_name.downcase
+      role&.downcase == role_name&.downcase
     end
   end
 

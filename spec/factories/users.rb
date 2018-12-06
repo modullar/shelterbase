@@ -8,7 +8,9 @@ FactoryBot.define do
   end
 
   factory :worker, parent: :user, class: 'Worker' do
+    association :shelter, factory: :shelter
   end
+  
   factory :client, parent: :user, class: 'Client' do
   end
 
