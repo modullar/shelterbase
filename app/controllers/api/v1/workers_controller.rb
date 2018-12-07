@@ -39,6 +39,7 @@ module Api
         @worker = Worker.find(params[:id])
       end
 
+      # Need cleaning
       def set_shelter
         @shelter = Shelter.find(params[:worker][:shelter_id])
       end

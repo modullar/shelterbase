@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  # Private API Endpoints
   namespace :api do
     namespace :v1 do
       resources :shelters
@@ -13,9 +14,17 @@ Rails.application.routes.draw do
     end
   end
 
+
+  # Public API Endpoints
   namespace :api do
     namespace :v1 do
       resources :animals
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :adoption_requests
     end
   end
 
