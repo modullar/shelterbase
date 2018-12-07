@@ -8,8 +8,7 @@ module Api
       def create
         shelter = Shelter.new(shelter_params)
         if shelter.save!
-          render json: {msg: 'Shelter was created.', shelter_id: shelter.id},
-                 status: :created
+          render_payload("Shelter #{shelter.id} was created", :created)
         end
       end
 
@@ -19,8 +18,7 @@ module Api
 
       def destroy
         @shelter.destroy
-        render json: {msg: 'record is destroyed'},
-               status: :no_content
+        render_payload("record is destroyed", :no_content)
       end
 
       private

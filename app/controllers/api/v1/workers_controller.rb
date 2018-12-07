@@ -10,8 +10,8 @@ module Api
       def create
         worker = Worker.new(worker_params)
         if worker.save!
-          render json: {msg: 'Worker was created.', worker_id: worker.id},
-                 status: :created
+          render_payload("Worker #{worker.id} Request was created",
+                         :created)
         end
       end
 
@@ -21,8 +21,7 @@ module Api
 
       def destroy
         @worker.destroy
-        render json: {msg: 'record is destroyed'},
-               status: :no_content
+        render_payload("record is destroyed", :no_content)
       end
 
       private
@@ -37,11 +36,6 @@ module Api
 
       def set_worker
         @worker = Worker.find(params[:id])
-      end
-
-      # Need cleaning
-      def set_shelter
-        @shelter = Shelter.find(params[:worker][:shelter_id])
       end
 
     end
