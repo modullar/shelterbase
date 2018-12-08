@@ -18,7 +18,7 @@ module Api
 
       def destroy
         @shelter.destroy
-        render_payload("record is destroyed", :no_content)
+        render_payload("record is destroyed", :accepted)
       end
 
       private

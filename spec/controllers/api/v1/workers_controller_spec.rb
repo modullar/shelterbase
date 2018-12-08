@@ -53,10 +53,10 @@ RSpec.describe Api::V1::WorkersController, type: :controller do
         post :create, params: {worker: worker_params}
       end
 
-      it 'should return 200 & delete the worker' do
+      it 'should return 202 & delete the worker' do
         expect(Worker.count).to eq 1
         delete :destroy, params: {id: Worker.first.id}
-        expect(response.status).to eq 204
+        expect(response.status).to eq 202
         expect(Worker.count).to eq 0
       end
     end

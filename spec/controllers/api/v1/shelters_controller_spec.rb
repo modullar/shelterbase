@@ -51,10 +51,10 @@ RSpec.describe Api::V1::SheltersController, type: :controller do
         post :create, params: {shelter: shelter_params}
       end
 
-      it 'should return 200 & delete the shelter' do
+      it 'should return 202 & delete the shelter' do
         expect(Shelter.count).to eq 1
         delete :destroy, params: {id: Shelter.first.id}
-        expect(response.status).to eq 204
+        expect(response.status).to eq 202
         expect(Shelter.count).to eq 0
       end
     end

@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   self.inheritance_column = 'role'
 
 
@@ -19,6 +18,7 @@ class User < ApplicationRecord
   validates_presence_of     :username
   validates_uniqueness_of   :email
   validates_uniqueness_of   :username
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
 
 
   %w( admin client worker).each do |role_name|

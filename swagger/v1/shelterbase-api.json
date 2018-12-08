@@ -1,0 +1,437 @@
+{
+  "securityDefinitions": {
+    "token": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "token": {
+      }
+    }
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/user_token": {
+      "post": {
+        "summary": "Create a user token",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auth": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password"
+                    }
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "required": [
+                "auth"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "token is created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jwt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "jwt"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/shelters": {
+      "post": {
+        "summary": "create an animal shelter",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shelter",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "shelter is created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/shelters/{id}": {
+      "delete": {
+        "summary": "destroy a shelter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "shelter is deleted",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workers": {
+      "post": {
+        "summary": "Create a worker",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "worker",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "worker": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string",
+                      "format": "password",
+                      "options": {
+                        "hidden": true
+                      }
+                    },
+                    "shelter_id": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "email",
+                  "username",
+                  "password",
+                  "shelter_id"
+                ]
+              },
+              "required": [
+                "worker"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "worker is created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            }
+          },
+          "400": {
+            "description": "bad request"
+          }
+        }
+      }
+    },
+    "/api/v1/workers/{id}": {
+      "get": {
+        "summary": "retrieve a worker",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "worker is found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "shelter_id": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "destroy a worker",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "worker is removed",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/animals": {
+      "get": {
+        "summary": "get a list of animals",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shelter_name",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pending_adoption",
+            "in": "query",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "retreive animals",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "animals": {
+                  "type": "array"
+                }
+              },
+              "required": [
+                "animals"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/animals/{id}": {
+      "get": {
+        "summary": "get an animal detail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "retreive animals",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "race": {
+                  "type": "string"
+                },
+                "shelter_id": {
+                  "type": "number"
+                },
+                "adoption_request_id": {
+                  "type": {
+                    "anyOf": [
+                      "null",
+                      "number"
+                    ]
+                  }
+                },
+                "pending_adoption": {
+                  "type": "bool"
+                },
+                "shelter_name": {
+                  "type": "string"
+                },
+                "medical_condition": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "medical_condition"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/adoption_requests": {
+      "post": {
+        "summary": "create a new adoption request",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "adoption_request",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "telephone_number": {
+                  "type": "string"
+                },
+                "animal_id": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "telephone_number",
+                "animal_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "token is created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

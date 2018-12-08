@@ -5,7 +5,6 @@ module Api
       before_action :authenticate_user
       before_action :authorize_as_client
       before_action :set_worker, only: [:show, :destroy]
-      before_action :set_shelter, only: :create
 
       def create
         worker = Worker.new(worker_params)
@@ -16,12 +15,12 @@ module Api
       end
 
       def show
-        return render json: @worker
+        return render json: Api::V1::WorkerSerializer.new(@worker).serialized_json        
       end
 
       def destroy
         @worker.destroy
-        render_payload("record is destroyed", :no_content)
+        render_payload("record is destroyed", :accepted)
       end
 
       private
@@ -29,8 +28,8 @@ module Api
       def worker_params
         params.require(:worker).require(:email)
         params.require(:worker).require(:username)
-        params.require(:worker).require(:password)
         params.require(:worker).require(:shelter_id)
+        params.require(:worker).require(:password)
         params.require(:worker).permit(:email, :username, :password, :shelter_id)
       end
 

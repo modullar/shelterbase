@@ -24,7 +24,7 @@ RSpec.describe Api::V1::AnimalsController, type: :controller do
 
     context 'shelter name filter' do
       it 'should returns all available animals with the specific name' do
-        get :index, params: {"animal": {"shelter_name": shelter.name}}
+        get :index, params: {shelter_name: shelter.name}
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)["animals"].size).to eq 2
       end
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::AnimalsController, type: :controller do
 
     context 'pending adoption filter' do
       it 'should returns all available animals with the specific adoption filter' do
-        get :index, params: {"animal": {"pending_adoption": false}}
+        get :index, params:  {"pending_adoption": false}
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)["animals"].size).to eq 2
       end
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::AnimalsController, type: :controller do
 
     context 'pending adoption and shelter name filter' do
       it 'should returns all available animals with the specific name and adoption filter' do
-        get :index, params: {"animal": {"pending_adoption": true, "shelter_name": shelter.name}}
+        get :index, params: {"pending_adoption": true, "shelter_name": shelter.name}
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)["animals"].size).to eq 1
       end

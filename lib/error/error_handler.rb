@@ -7,6 +7,7 @@ module Error
         rescue_from Exception, with: :error_occured
         rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
         rescue_from ActionController::ParameterMissing, with: :missing_params
+        rescue_from ActiveRecord::RecordInvalid, with: :record_is_invalid
       end
     end
 
@@ -22,6 +23,12 @@ module Error
       render json: {
         error: _e.to_s
       }, status: :not_found
+    end
+
+    def record_is_invalid(_e)
+      render json: {
+        error: _e.to_s
+      }, status: :bad_request
     end
 
     def error_occured(_e)

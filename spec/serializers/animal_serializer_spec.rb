@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AnimalSerializer, type: :model do
+RSpec.describe Api::V1::AnimalSerializer, type: :model do
   let(:animal){FactoryBot.create(:animal)}
   let(:serializer) { described_class.new(animal) }
   let(:subject){ JSON.parse(serializer.serialized_json) }

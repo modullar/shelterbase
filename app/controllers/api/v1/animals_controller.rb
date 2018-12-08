@@ -21,12 +21,12 @@ module Api
 
       def search_params
         hash = {}
-        return hash unless params['animal']
-        if !params['animal']['shelter_name'].nil?
-          hash = hash.merge({shelter_name: params['animal']['shelter_name']})
+        return hash unless params
+        if !params['shelter_name'].nil?
+          hash = hash.merge({shelter_name: params['shelter_name']})
         end
-        if !params['animal']['pending_adoption'].nil?
-          hash= hash.merge({pending_adoption: params['animal']['pending_adoption']})
+        if !params['pending_adoption'].nil?
+          hash= hash.merge({pending_adoption: params['pending_adoption']})
         end
         hash
       end
